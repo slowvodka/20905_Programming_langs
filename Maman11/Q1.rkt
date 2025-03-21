@@ -3,10 +3,11 @@
 (provide my_flat)
 
 #|
-furction my_flat 
-this function should get any list and flatten it
-
-
+function my_flat 
+this function gets any list and flattens it
+args: 
+    my_list: list
+returns: list
 |#
 
 (define (my_flat my_list)
