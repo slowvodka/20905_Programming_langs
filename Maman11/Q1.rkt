@@ -1,34 +1,24 @@
 
-#lang racket 
+#lang scheme 
+(provide my_flat)
 
-#|>(my_flat '( (1 2) ((3)) (4 5 6)))
-'(1 2 3 4 5 6)
->(my_flat '( 2 6 9))
-'(2 6 9)
->(my_flat '())
-#'()
-
-FUNCTION flatten_recursive(nested_list):
-    result_list ← empty list
-    
-    FOR each element in nested_list:
-        IF element is a list:
-            flattened_sublist ← flatten_recursive(element)
-            APPEND all elements of flattened_sublist to result_list
-        ELSE:
-            APPEND element to result_list
-    
-    RETURN result_list
+#|
+furction my_flat 
+this function should get any list and flatten it
 
 
 |#
 
+(define (my_flat my_list)
+        (cond
+            [(empty? my_list) 
+                empty] ; return nothing
+            [(list? (first my_list)) 
+                (append (my_flat (first my_list)) (my_flat (rest my_list)))
+                ] ;if first element not a list
+            [else 
+                (cons (first my_list) (my_flat (rest my_list)))
+            ] ;if first elemt is a list
 
-(define my_flat my_list)
-    (define results_list '() )
-    ; (define (= my_list, (my_list)))
-
-    ; (for [element my_list])
-    ;     display (element)
-
-(my_flat (1,2,3,4))
+        ) 
+)
