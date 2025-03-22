@@ -1,5 +1,7 @@
 #lang scheme
-(require "Q2.rkt")  ; import your function
+(require "Q2.rkt") 
+(require "utils.rkt")
+
 (provide TESTQ2)
 
 (define train-cases
@@ -20,26 +22,21 @@
 ))
 
 (define test-cases
-(list
-    '()     
-    '(1)     
-    '(1 2)     
-    '(1)     
-    '(1 2)     
-    '()     
-    '(3)     
-    '(3)     
-    '(1 2 4 5)     
-    '(1 2 3 4 5 6)      
-    '(a b d e 3 4 6 7)                
+    (list
+        '()     
+        '(1)     
+        '(1 2)     
+        '(1)     
+        '(1 2)     
+        '()     
+        '(3)     
+        '(3)     
+        '(1 2 4 5)     
+        '(1 2 3 4 5 6)      
+        '(a b d e 3 4 6 7)                
 
-))
-
-(define (unordered-equal? a b)
-    (and (subset? a b) (subset? b a)))
-
-(define (subset? xs ys)
-    (andmap (lambda (x) (member x ys)) xs))
+    )
+)
 
 (define (TESTQ2)
     (displayln (format "Q2 TESTS:"))

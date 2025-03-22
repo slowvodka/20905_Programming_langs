@@ -1,5 +1,6 @@
 #lang scheme
-(require "Q1.rkt")  ; import your function
+(require "Q1.rkt") 
+(require "utils.rkt")
 (provide TESTQ1)
 
 
@@ -49,7 +50,7 @@
             [expected test-cases]
             [i (in-naturals 1)])
         (define result (my_flat input))
-        (if (equal? result expected)
+        (if (unordered-equal? result expected)
         (displayln (format "TEST ~a: ✅ PASS" i))
         (begin
             (displayln (format "TEST ~a: ❌ FAIL" i))

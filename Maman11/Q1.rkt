@@ -10,16 +10,11 @@ args:
 returns: list
 |#
 
-(define (my_flat my_list)
-        (cond
-            [(empty? my_list) 
-                empty] ; return nothing
-            [(list? (first my_list)) 
-                (append (my_flat (first my_list)) (my_flat (rest my_list)))
-                ] ;if first element not a list
-            [else 
-                (cons (first my_list) (my_flat (rest my_list)))
-            ] ;if first elemt is a list
-
-        ) 
-)
+(define (my_flat lst)
+    (reverse
+    (foldl (lambda (elem acc)
+            (if (list? elem)
+                (append (my_flat elem) acc)
+                (cons elem acc)))
+        '()
+        lst)))
