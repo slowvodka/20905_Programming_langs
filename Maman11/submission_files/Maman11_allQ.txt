@@ -1,0 +1,135 @@
+#|
+    Zeev Slobodnik
+    Id 305852402
+    Maman 11
+
+    there are 6 files -
+    1.Maman11_allQ.txt which contains all answers
+    2.utils.txt which runs the tests 
+    3.Q1_tests.txt which contains all the tests for Q1
+    4.Q2_tests.txt which contains all the tests for Q2
+    5.Q3_tests.txt which contains all the tests for Q3
+    6.Q4_tests.txt which contains all the tests for Q4
+|#
+
+
+#lang scheme 
+(provide my_flat)
+(provide set-dif)
+(provide my_permutations)
+(provide foo)
+
+
+#| *** Q1 *** |#
+
+#|
+function my_flat 
+this function gets any list and flattens it
+args: 
+    my_list: list
+returns: list
+|#
+
+(define (my_flat lst)
+    (reverse
+    (foldl (lambda (elem acc)
+            (if (list? elem)
+                (append (my_flat elem) acc)
+                (cons elem acc)))
+        '()
+        lst)))
+
+
+#| *** Q2 *** |#
+
+
+#|
+function isin
+this function gets element and a list and return true if a in list
+args: 
+    x: any element
+    l list
+returns: bool
+
+|#
+
+(define (isin x l)
+    (cond
+        [(empty? l) #f]
+        [(equal? x (first l)) #t]
+        [else (isin x (rest l))]
+        )
+    
+)
+
+#|
+function set-dif 
+this function gets 2 flattened lists returns the symmetric diff between the two
+args: 
+    list_a: list
+    list_b: list
+returns: list
+
+|#
+
+(define (set-dif list_a list_b)
+    (define solution empty)
+    (define all_elements (append list_a list_b))
+    (for ([element all_elements])
+        (when (not (and (isin element list_a ) (isin element list_b)) )
+        (set! solution (cons element solution))
+        )
+    )
+    solution
+)
+
+#| *** Q3 *** |#
+
+#|
+function my_permutations 
+this function gets a list and returns a list of all possible permutations
+args: 
+    lst: list
+returns: list
+|#
+
+
+(define (my_permutations lst)
+    (if (empty? lst) 
+        (list '())  
+        (apply append (for/list ([i (in-range (length lst))])
+            (define elem (list-ref lst i))
+            (define rest (append (take lst i) (drop lst (add1 i))))
+            (for/list ([p (my_permutations rest)])
+                (list* elem p))))
+    )
+
+)
+
+
+#| *** Q4 *** |#
+#| i havnt added a description since there is one in the questionere |#
+
+(define foo
+    (lambda (ls s)
+        (cond
+            [(null? ls) `(() . ,s)]  
+
+            [(pair? (car ls))        
+                (let ((p (foo (car ls) s)))
+                (let ((p1 (foo (cdr ls) (cdr p))))
+                `(,(cons (car p) (car p1)) . ,(cdr p1))))]
+
+            [(or (null? (car ls)) (odd? (car ls)))  
+                (let ((p (foo (cdr ls) s)))
+                `(,(cons (car ls) (car p)) . ,(cdr p)))]
+
+            [else                    
+                (let ((p (foo (cdr ls) s)))
+                `(,(car p) . ,(add1 (cdr p))))])))
+
+
+
+
+
+

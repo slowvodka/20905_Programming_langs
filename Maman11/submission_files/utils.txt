@@ -1,0 +1,22 @@
+#lang scheme
+
+(provide unordered-equal?)
+(provide subset?)
+
+
+(define (unordered-equal? a b)
+    (and (subset? a b) (subset? b a)))
+
+(define (subset? xs ys)
+    (andmap (lambda (x) (member x ys)) xs))
+
+
+(require "Q1_submission_tests.rkt") 
+(require "Q2_submission_tests.rkt") 
+(require "Q3_submission_tests.rkt") 
+(require "Q4_submission_tests.rkt") 
+
+(TESTQ1)
+(TESTQ2)
+(TESTQ3)
+(TESTQ4)

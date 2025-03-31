@@ -1,0 +1,67 @@
+#lang scheme
+(require "Maman11_allQ.rkt") 
+(require "utils.rkt")
+(provide TESTQ4)
+
+
+(define train-cases
+    (list
+        (list '() 0) 
+        (list '(1) 0) 
+        (list '(2) 0) 
+        (list '(1 2) 0) 
+        (list '(2 1) 0) 
+        (list '(1 2 4) 0) 
+        (list '(2 1 4) 0) 
+        (list '((1) 2) 0) 
+        (list '((2) 1) 0) 
+        (list '((1) (2) (3)) 0) 
+        (list '((1 2) 3 4) 0) 
+        (list '((1 (2)) 3 4) 0) 
+        (list '(((1) 2) 3 4) 0) 
+        (list '((() 2) 3 4) 0) 
+    
+    )
+)
+
+(define test-cases
+    (list
+        '(() . 0) 
+        '((1) . 0)
+        '(() . 1)
+        '((1) . 1)
+        '((1) . 1)
+        '((1) . 2)
+        '((1) . 2)
+        '(((1)) . 1)
+        '((() 1) . 1)
+        '(((1) () (3)) . 1)
+        '(((1) 3) . 2)
+        '(((1 ()) 3) . 2) 
+        '((((1)) 3) . 2) 
+        '(((()) 3) . 2)  
+    )
+)
+
+
+
+
+
+(define (TESTQ4)
+    (displayln (format "Q4 TESTS:"))
+    (for ([pair train-cases]
+        [expected test-cases]
+        [i (in-naturals 1)])
+    (define a (first pair))
+    (define b (second pair))
+    (define result (foo a b))
+    (if (equal? result expected)
+        (displayln (format "TEST ~a: ✅ PASS" i))
+        (begin
+            (displayln (format "TEST ~a: ❌ FAIL" i))
+            (displayln (format "  Input:    (~a ~a)" a b))
+            (displayln (format "  Got:      ~a" result))
+            (displayln (format "  Expected: ~a\n" expected))))        
+    )
+)
+

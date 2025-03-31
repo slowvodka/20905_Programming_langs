@@ -2,6 +2,6 @@ FROM gitpod/workspace-full
 
 USER root
 
-RUN apt-get update && apt-get install -y racket
+RUN sudo apt-get update && sudo apt-get install -y racket
 
 USER gitpod
